@@ -1,6 +1,9 @@
 import Template from '@/layout/template';
 import '@/styles/global.css';
 import Head from 'next/head';
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+config.autoAddCss = false;
 
 function App({ Component, pageProps }) {
 	return (
