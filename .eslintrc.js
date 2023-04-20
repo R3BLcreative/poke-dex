@@ -8,6 +8,7 @@ module.exports = {
 	extends: [
 		'eslint:recommended',
 		'plugin:react/recommended',
+		'plugin:react/jsx-runtime',
 		'prettier',
 	],
 	parserOptions: {
@@ -27,7 +28,7 @@ module.exports = {
 			{
 				singleQuote: true,
 				'jsx-single-quote': true,
-				semi: false,
+				semi: true,
 				useTabs: true,
 			},
 		],
@@ -36,4 +37,4 @@ module.exports = {
 		setupComponent: true,
 		testGraphqlError: true,
 	},
-}
+};
