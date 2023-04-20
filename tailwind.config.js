@@ -13,8 +13,8 @@ module.exports = {
 		},
 		extend: {
 			fontFamily: {
-				body: ['Roboto', 'sans-serif'],
-				heading: ['Oswald', 'Roboto', 'sans-serif'],
+				body: ['Open Sans', 'sans-serif'],
+				heading: ['Lato', 'sans-serif'],
 			},
 			colors: {
 				primary: {

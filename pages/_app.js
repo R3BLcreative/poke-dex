@@ -1,5 +1,5 @@
 import Template from '@/layout/template';
-import '@/styles/global.css';
+import '@/styles/globals.css';
 import Head from 'next/head';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -33,7 +33,11 @@ function App({ Component, pageProps }) {
 				<link rel="manifest" href="/site.webmanifest" />
 
 				<link rel="preconnect" href="https://fonts.googleapis.com" />
-				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+				<link
+					rel="preconnect"
+					href="https://fonts.gstatic.com"
+					crossOrigin="anonymous"
+				/>
 			</Head>
 			<Component {...pageProps} />
 		</Template>
