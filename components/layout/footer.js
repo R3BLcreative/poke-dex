@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Row from '@/sections/row';
 
-export default function Footer(props) {
+export default function Footer() {
 	return (
 		<footer className="py-3 absolute bottom-0 w-full">
 			<Row>

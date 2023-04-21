@@ -37,8 +37,6 @@ export default function Home({ cards, page, count }) {
 		return <Loading />;
 	}
 
-	console.log(count);
-
 	return (
 		<Section>
 			<Row>
