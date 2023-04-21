@@ -1,12 +1,12 @@
 {
 	"compilerOptions": {
 		"paths": {
-			"@/components/*": ["./components/*"],
-			"@/styles/*": ["./styles/*"],
-			"@/helpers/*": ["./helpers/*"],
 			"@/layout/*": ["./components/layout/*"],
 			"@/sections/*": ["./components/sections/*"],
-			"@/ui/*": ["./components/ui/*"]
+			"@/ui/*": ["./components/ui/*"],
+			"@/components/*": ["./components/*"],
+			"@/styles/*": ["./styles/*"],
+			"@/helpers/*": ["./helpers/*"]
 		}
 	}
 }
