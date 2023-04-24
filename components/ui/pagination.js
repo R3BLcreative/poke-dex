@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import PagiItem from './pagi-item';
+import { getCount } from '@/helpers/ui-utils';
 
-export default function Pagination({ page, count }) {
+export default function Pagination({ page, onPageChange }) {
+	const count = getCount();
 	const pgCount = Math.ceil(count / 20);
 
 	const [before, setBefore] = useState();
@@ -19,6 +21,7 @@ export default function Pagination({ page, count }) {
 					page={i}
 					text={i}
 					style="mobile:hidden tablet:block"
+					onPageChange={onPageChange}
 				/>
 			);
 		}
@@ -33,11 +36,15 @@ export default function Pagination({ page, count }) {
 					page={i}
 					text={i}
 					style="mobile:hidden tablet:block"
+					onPageChange={onPageChange}
 				/>
 			);
 		}
 		setAfter(after);
 	}, [page]);
+
+	const prevPage = +page - 1 < 1 ? pgCount : +page - 1;
+	const nextPage = +page + 1 > pgCount ? 1 : +page + 1;
 
 	return (
 		<nav
@@ -45,8 +52,18 @@ export default function Pagination({ page, count }) {
 			aria-label="Pagination"
 			className="col-span-full w-full flex flex-row items-center justify-center mobile:gap-4 tablet:gap-6 first:mb-8 last:mt-8"
 		>
-			<PagiItem page={1} text="First" style="px-3" />
-			<PagiItem page={+page - 1} text="Prev" style="px-3" />
+			<PagiItem
+				page={1}
+				text="First"
+				style="px-3"
+				onPageChange={onPageChange}
+			/>
+			<PagiItem
+				page={prevPage}
+				text="Prev"
+				style="px-3"
+				onPageChange={onPageChange}
+			/>
 
 			{before}
 			<span className="mobile:hidden tablet:block py-1 w-[40px] rounded-md text-center bg-white text-red font-black">
@@ -54,8 +71,18 @@ export default function Pagination({ page, count }) {
 			</span>
 			{after}
 
-			<PagiItem page={+page + 1} text="Next" style="px-3" />
-			<PagiItem page={pgCount} text="Last" style="px-3" />
+			<PagiItem
+				page={nextPage}
+				text="Next"
+				style="px-3"
+				onPageChange={onPageChange}
+			/>
+			<PagiItem
+				page={pgCount}
+				text="Last"
+				style="px-3"
+				onPageChange={onPageChange}
+			/>
 		</nav>
 	);
 }

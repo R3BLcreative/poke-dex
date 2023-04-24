@@ -1,7 +1,60 @@
+export function getCount() {
+	return 1281;
+}
+
 async function getNames(objects) {
 	return await Promise.all(
 		objects.map(async ({ type, ability }) => {
 			return type ? type.name : ability.name;
+		})
+	);
+}
+
+async function buildChain(evo) {
+	let chain;
+	chain = `,${evo[0].species.name}`;
+
+	if (evo[0].evolves_to.length > 0) {
+		chain += await buildChain(evo[0].evolves_to);
+	}
+
+	return chain;
+}
+
+async function getEvolutions({ url }) {
+	// Get Species
+	const specRes = await fetch(url);
+	const specData = await specRes.json();
+
+	// Get Evolution Chain
+	const evoRes = await fetch(specData.evolution_chain.url);
+	const evoData = await evoRes.json();
+
+	// Get Species URLs in chain
+	let specChain = evoData.chain.species.name;
+	if (evoData.chain.evolves_to.length > 0) {
+		specChain += await buildChain(evoData.chain.evolves_to);
+	}
+	const specNames = specChain.split(',');
+
+	// Loop through species urls and get pokemon names & sprites
+	return await Promise.all(
+		specNames.map(async (name) => {
+			// Get species
+			const pokeRes = await fetch(
+				`${process.env.API_PATH}/api/pokemon/${name}`
+			);
+			const pokeData = await pokeRes.json();
+
+			const img =
+				pokeData.sprites.other.dream_world.front_default == null
+					? pokeData.sprites.other['official-artwork'].front_default
+					: pokeData.sprites.other.dream_world.front_default;
+
+			return {
+				name: pokeData.name,
+				image: img == null ? '/images/gfx_default_sprite.png' : img,
+			};
 		})
 	);
 }
@@ -14,7 +67,14 @@ export async function getPoke({
 	types,
 	abilities,
 	sprites,
+	species,
+	evos,
 }) {
+	const img =
+		sprites.other.dream_world.front_default == null
+			? sprites.other['official-artwork'].front_default
+			: sprites.other.dream_world.front_default;
+
 	return {
 		id,
 		name,
@@ -22,10 +82,8 @@ export async function getPoke({
 		weight,
 		types: await getNames(types),
 		abilities: await getNames(abilities),
-		image:
-			sprites.other.dream_world.front_default == null
-				? sprites.other['official-artwork'].front_default
-				: sprites.other.dream_world.front_default,
+		evolutions: evos ? await getEvolutions(species) : {},
+		image: img == null ? '/images/gfx_default_sprite.png' : img,
 	};
 }
 
@@ -34,6 +92,7 @@ export async function pokeObject(objects) {
 		objects.map(async (object) => {
 			const response = await fetch(object.url);
 			const data = await response.json();
+			data.evos = false;
 
 			return await getPoke(data);
 		})

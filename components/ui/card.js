@@ -9,9 +9,9 @@ export default function Card({ card }) {
 			id="card-wrapper"
 			className={`rounded-md bg-transparent mobile:col-span-full tablet:col-span-4 laptop:col-span-3 border-[10px] relative ${style.wrapper}`}
 		>
-			<Link href={`/${card.id}`} className="hover:animate-pulse">
+			<Link href={`/${card.name}`} className="hover:animate-pulse">
 				<div id="card-inner" className={`py-2 px-4 ${style.inner}`}>
-					<span className="text-black capitalize font-bold text-lg tracking-wide">
+					<span className="text-black capitalize font-bold text-lg tracking-wide line-clamp-1">
 						{card.name}
 					</span>
 					<div
