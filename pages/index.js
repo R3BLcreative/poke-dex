@@ -9,10 +9,11 @@ import { useEffect, useState } from 'react';
 
 export async function getStaticProps() {
 	let cards = false;
+	let count = 0;
 
 	try {
 		const response = await fetch(
-			`${process.env.API_PATH}/api/pokemon?` +
+			`${process.env.BASE_URL}/api/pokemon?` +
 				new URLSearchParams({
 					limit: 20,
 				})
@@ -21,18 +22,20 @@ export async function getStaticProps() {
 		const results = data.results;
 
 		cards = await pokeObject(results);
+		count = data.count;
 	} catch (error) {
-		console.log(error);
+		// Error reporting
 	}
 
 	return {
 		props: {
 			cards,
+			count,
 		},
 	};
 }
 
-export default function Home({ cards }) {
+export default function Home({ cards, count }) {
 	const [currentPage, setCurrentPage] = useState(1);
 	const [theCards, setTheCards] = useState(cards);
 	const [isLoading, setIsLoading] = useState(false);
@@ -68,7 +71,11 @@ export default function Home({ cards }) {
 		return (
 			<Section>
 				<Row>
-					<Pagination page={currentPage} onPageChange={onPageChange} />
+					<Pagination
+						page={currentPage}
+						onPageChange={onPageChange}
+						count={count}
+					/>
 					<Loading />
 				</Row>
 			</Section>
@@ -78,9 +85,17 @@ export default function Home({ cards }) {
 	return (
 		<Section>
 			<Row>
-				<Pagination page={currentPage} onPageChange={onPageChange} />
+				<Pagination
+					page={currentPage}
+					onPageChange={onPageChange}
+					count={count}
+				/>
 				<Cards cards={theCards} />
-				<Pagination page={currentPage} onPageChange={onPageChange} />
+				<Pagination
+					page={currentPage}
+					onPageChange={onPageChange}
+					count={count}
+				/>
 			</Row>
 		</Section>
 	);

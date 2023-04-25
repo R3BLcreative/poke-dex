@@ -1,22 +1,25 @@
-import { getCount, getPoke } from '@/helpers/ui-utils';
+import { getPoke } from '@/helpers/ui-utils';
 import PokeDetails from '@/sections/details';
 import Loading from '@/sections/loading';
-import NextPage from '@/ui/next';
-import PreviousPage from '@/ui/previous';
+import SinglePagination from '@/ui/single-pagination';
 
 export async function getStaticProps({ params }) {
 	let poke = false;
 
 	try {
 		const response = await fetch(
-			`${process.env.API_PATH}/api/pokemon/${params.pid}`
+			`${process.env.BASE_URL}/api/pokemon/${params.pid}`
 		);
 		const data = await response.json();
 		const results = data;
+
+		// Set object flags
 		results.evos = true;
+		results.single = true;
+
 		poke = await getPoke(results);
 	} catch (error) {
-		console.log(error);
+		// Error reporting
 	}
 
 	return {
@@ -38,14 +41,11 @@ export default function PokePage({ poke }) {
 		return <Loading />;
 	}
 
-	const prevId = poke.id === 1 ? getCount() : poke.id - 1;
-	const nextId = poke.id === getCount() ? 1 : poke.id + 1;
-
 	return (
 		<>
-			<PreviousPage id={prevId} />
+			<SinglePagination id={poke.prev} direction="prev" />
 			<PokeDetails poke={poke} />
-			<NextPage id={nextId} />
+			<SinglePagination id={poke.next} direction="next" />
 		</>
 	);
 }

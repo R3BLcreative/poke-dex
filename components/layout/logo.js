@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Logo(props) {
 	return (
-		<Link href="/" className={props.className}>
+		<Link href="/" className={props.className} tabIndex={1}>
 			<Image
 				src={'/images/logo_pokeDex.png'}
 				alt="Poke-Dex Logo"

@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import PagiItem from './pagi-item';
-import { getCount } from '@/helpers/ui-utils';
 
-export default function Pagination({ page, onPageChange }) {
-	const count = getCount();
+export default function Pagination({ count, page, onPageChange }) {
 	const pgCount = Math.ceil(count / 20);
 
 	const [before, setBefore] = useState();
