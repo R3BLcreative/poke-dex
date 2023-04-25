@@ -14,7 +14,7 @@ export default function PokeImage({ poke }) {
 					alt={poke.name}
 					width={500}
 					height={500}
-					className=""
+					className="mobile:max-h-[350px] laptop:max-h-[450px]"
 				/>
 			</div>
 		</div>

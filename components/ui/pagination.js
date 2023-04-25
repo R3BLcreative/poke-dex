@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import PagiItem from './pagi-item';
 
 export default function Pagination({ count, page, onPageChange }) {
+	if (!count) {
+		count = 1281;
+	}
+
 	const pgCount = Math.ceil(count / 20);
 
 	const [before, setBefore] = useState();
