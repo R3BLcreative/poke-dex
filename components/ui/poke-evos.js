@@ -1,4 +1,3 @@
-import { typeStyles } from '@/helpers/ui-utils';
 import { Fragment } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -6,8 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/pro-duotone-svg-icons';
 
 export default function PokeEvos({ poke }) {
-	// const style = typeStyles(poke.types[0]);
-
 	return (
 		<div className="mobile:col-span-full mobile:col-start-1 tablet:col-span-full laptop:col-span-8 laptop:col-start-3 p-6 rounded-lg bg-transparent flex flex-col justify-center items-center">
 			<h2 className="mobile:text-3xl tablet:text-3xl laptop:text-4xl uppercase drop-shadow-poke-name font-heading font-black italic tracking-widest text-center w-full mb-8 text-primary">
