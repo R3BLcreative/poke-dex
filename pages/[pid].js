@@ -1,6 +1,6 @@
 import { getPoke } from '@/helpers/ui-utils';
 import PokeDetails from '@/sections/details';
-import Loading from '@/sections/loading';
+import Error from '@/sections/error';
 import SinglePagination from '@/ui/single-pagination';
 
 export async function getStaticProps({ params }) {
@@ -38,7 +38,7 @@ export function getStaticPaths() {
 
 export default function PokePage({ poke }) {
 	if (!poke) {
-		return <Loading />;
+		return <Error />;
 	}
 
 	return (

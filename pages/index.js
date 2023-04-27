@@ -63,10 +63,6 @@ export default function Home({ cards, count }) {
 		setCurrentPage(page);
 	};
 
-	if (!theCards) {
-		return <Error />;
-	}
-
 	if (isLoading) {
 		return (
 			<Section>
@@ -80,6 +76,10 @@ export default function Home({ cards, count }) {
 				</Row>
 			</Section>
 		);
+	}
+
+	if (!theCards) {
+		return <Error />;
 	}
 
 	return (
