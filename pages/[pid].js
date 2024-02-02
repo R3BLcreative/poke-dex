@@ -7,9 +7,7 @@ export async function getStaticProps({ params }) {
 	let poke = false;
 
 	try {
-		const response = await fetch(
-			`${process.env.BASE_URL}/api/pokemon/${params.pid}`
-		);
+		const response = await fetch(`${process.env.BASE_URL}/api/pokemon/${params.pid}`);
 		const data = await response.json();
 		const results = data;
 
@@ -20,6 +18,7 @@ export async function getStaticProps({ params }) {
 		poke = await getPoke(results);
 	} catch (error) {
 		// Error reporting
+		console.log('There was an error');
 	}
 
 	return {
@@ -43,9 +42,15 @@ export default function PokePage({ poke }) {
 
 	return (
 		<>
-			<SinglePagination id={poke.prev} direction="prev" />
+			<SinglePagination
+				id={poke.prev}
+				direction="prev"
+			/>
 			<PokeDetails poke={poke} />
-			<SinglePagination id={poke.next} direction="next" />
+			<SinglePagination
+				id={poke.next}
+				direction="next"
+			/>
 		</>
 	);
 }

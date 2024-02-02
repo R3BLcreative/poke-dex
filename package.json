@@ -19,7 +19,7 @@
 		"@fortawesome/sharp-light-svg-icons": "^6.4.0",
 		"@fortawesome/sharp-regular-svg-icons": "^6.4.0",
 		"@fortawesome/sharp-solid-svg-icons": "^6.4.0",
-		"next": "13.3.0",
+		"next": "^13.5.6",
 		"next-http-proxy-middleware": "^1.2.4",
 		"react": "18.2.0",
 		"react-dom": "18.2.0"
